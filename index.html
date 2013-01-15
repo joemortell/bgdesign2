@@ -1,0 +1,1047 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">	
+	<!-- saved from url=(0014)about:internet -->
+<head>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		<title>BGdesign2</title>
+				
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="title" content="BGdesign2" />
+<meta name="keywords" content="BGdesign2, BGdesign2, jAlbum 10, Galleria" />
+<meta name="description" content="BGdesign2" />
+<meta property="og:title" content="BGdesign2" />
+<meta property="og:site_name" content="Jalbum" />
+<meta property="fb:app_id" content="140299612674733" />
+		<link href="res/galleria/galleria.css" rel="stylesheet" type="text/css" />
+		<link href="res/index.css" rel="stylesheet" type="text/css" />		
+		<link href="res/common.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+	.thumbnails li {
+		width: 90px;
+		height: 90px;
+	}
+
+	#middle_container {
+		height: 800px;
+	}
+
+	#scroller_container {
+		margin-top: 20px;
+		margin-bottom: 10px;
+		width: 776px;	
+	}
+
+	#image_scroller {
+		margin: 0 10px 0 20px;
+		width: 706px;
+	}
+	
+	#thumbnails_container {
+		width: 6906px;
+	}
+	
+	#scroller_container,
+	#image_scroller,
+	#thumbnails_container {
+		height: 106px;
+	}
+	
+	#folders_container {
+		;
+	}		
+	
+	.folders {
+		width: 0px;
+	}
+	
+	.folders li {
+		width: 106px;
+		height: 106px;
+	}
+	
+	.caption,
+	.description {
+		width: 706px;
+	}
+</style>
+		<script src="res/jquery.js" type="text/javascript"></script>
+			<script src="res/jquery.hotkeys.js" type="text/javascript"></script>
+	<script src="res/galleria/jquery.galleria.js" type="text/javascript"></script>
+	<script src="res/jquery.scrollimages.js" type="text/javascript"></script>	
+	<script type="text/javascript"><!--//--><![CDATA[//><!--	
+		$(function() {
+			$("#thumbnails_container").imageScroller({
+				onBeforeScroll: function() { $.galleria.stop() },
+				onScroll: function() { $.galleria.start() }, 
+				duration: 120, 
+				imageWidth: 100, 
+				size: 7,
+				fastSteps: 5
+			});
+			
+			var formattedThumbnailOpacity = 67/100;
+			
+			$(".thumbnails_unstyled").addClass("thumbnails");
+			$("ul.thumbnails").galleria({
+				history: false,
+				clickNext: true,
+				insert: "#main_image",
+				onImage: function(image, caption, thumb) {
+					var extras = $("#extras").css("display", "none").empty();
+					image.css("display", "none").fadeIn(500);
+					caption.css("display", "none").fadeIn(500);
+					
+					if (false) {
+						var extrasList = $("<ul></ul>");
+						extrasList.addMetadata("Date", thumb.data("originalDate"));
+						extrasList.addMetadata("Camera", thumb.data("cameraModel"));
+						extrasList.addMetadata("Exposure time", thumb.data("exposureTime"));
+						extrasList.addMetadata("ISO", thumb.data("isoEquivalent"));
+						extrasList.addMetadata("Aperture", thumb.data("aperture"));
+						extrasList.addMetadata("Focus distance", thumb.data("focusDistance"));
+						extrasList.addMetadata("Focal length", thumb.data("focalLength35mm"));
+						extrasList.addMetadata("Keywords", thumb.data("keywords"));
+						if (extrasList.children().length > 0) {
+							extras.append(extrasList);						
+							extrasList.find(":first-child").addClass("first");
+							extras.css({ 
+								width : (image.outerWidth() - (5 * 2) + 100) + "px" 
+							}).fadeIn(500);
+						}
+					}
+					
+					var li = thumb.parents("li");
+					li.siblings().children("img.selected").fadeTo(500, formattedThumbnailOpacity);
+					thumb.fadeTo("fast", 1).addClass("selected");
+					image.attr("title", "Next image");
+					
+					var original = thumb.data("original");
+					if (original) {
+						var originalLink = $("<a></a>").attr("href", original).text("Download original");
+						caption.append(" (").append(originalLink).append(")");
+					}
+				},
+				onThumb: function(thumb) {
+					var li = thumb.parents("li");
+					var fadeTo = li.is(".active") ? "1" : formattedThumbnailOpacity;
+					thumb.css({display: "none", opacity: fadeTo}).fadeIn(1500);
+					thumb.hover(
+						function() { 
+							thumb.fadeTo("fast", 1);		
+						},
+						function() {
+							li.not(".active").children("img").fadeTo("fast", formattedThumbnailOpacity);
+						}
+					)
+				},
+				preloads: 3,
+				fastSteps: 5,
+				onPrev: function() {
+					$.imageScroller.scrollLeft();
+				},
+				onNext: function() {
+					$.imageScroller.scrollRight();
+				},
+				onPrevFast: function() {
+					$.imageScroller.fastScrollLeft();
+				},
+				onNextFast: function() {
+					$.imageScroller.fastScrollRight();
+				},
+				enableSlideshow : false,
+				autostartSlideshow : false,
+				slideshowDelay : 3000,
+				onSlideshowPlayed : function() {
+					$('.play').hide();
+					$('.pause').show();	
+				},
+				onSlideshowPaused : function() {
+					$('.play').show();
+					$('.pause').hide();
+				}
+			});
+			
+			$.galleria.loader = $("<div></div>").addClass("loader").append($(new Image()).attr("src","res/loader.gif").attr("title","Loading..."));
+			
+			prepareArrow = function(arrow) {
+				arrow.css({display: "none", opacity: 0.5, "padding-top": "25px"}).fadeIn( 1000);			
+				arrow.hover(
+					function() {
+						arrow.fadeTo("fast", 1);
+					},
+					function() {
+						arrow.fadeTo("fast", 0.5);			
+					}
+				);	
+			}
+			
+			var leftArrow = $("#left_arrow");
+			prepareArrow(leftArrow);
+			leftArrow.click(function() {
+				$.galleria.prev();	
+			});
+			
+			var rightArrow = $("#right_arrow");
+			prepareArrow(rightArrow);
+			rightArrow.click(function() {
+				$.galleria.next();
+			});
+			
+			if (false) {
+				var leftFastArrow = $("#left_fast_arrow");
+				prepareArrow(leftFastArrow);
+				leftFastArrow.click(function() {
+					$.galleria.prevFast();
+				});
+				
+				var rightFastArrow = $("#right_fast_arrow");
+				prepareArrow(rightFastArrow);
+				rightFastArrow.click(function() {
+					$.galleria.nextFast();
+				});
+			}
+		});
+
+		$(document).bind("keydown", "left", function() {
+			if (!KeyboardNavigation.widgetHasFocus()) {
+				$.galleria.prev();
+			}
+		});
+		$(document).bind("keydown", "right", function() {
+			if (!KeyboardNavigation.widgetHasFocus()) {
+				$.galleria.next();
+			}
+		});
+		$(document).bind("keydown", "space", function() {
+			if (!KeyboardNavigation.widgetHasFocus()) {
+				$.galleria.toggleSlideshow();
+			}
+		});
+
+		var KeyboardNavigation = {
+			widgetHasFocus: function() {
+				if(typeof _jaWidgetFocus != 'undefined' && _jaWidgetFocus) {
+					return true;
+				}
+				return false;
+			}
+		}
+	//--><!]]></script>
+
+	<link rel="alternate" href="album.rss" type="application/rss+xml"/>
+</head>
+	<body>
+		<div id="header">
+			<div id="top_container" class="border">
+							
+					
+			</div>
+				
+		</div>
+<div id="main">
+		<div id="scroller_container">
+			<img class="hide" id="left_arrow" src="res/left.png" alt="Scroll left" title="Scroll left" />					
+			<div id="image_scroller">
+				<ul id="thumbnails_container" class="thumbnails_unstyled">
+						<li class="active">
+									
+
+							<a href="slides/DSC00327.JPG" title="45">
+										
+								<img src="thumbs/DSC00327.JPG" alt="45" title="45" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00328.JPG" title="46">
+										
+								<img src="thumbs/DSC00328.JPG" alt="46" title="46" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00329.JPG" title="47">
+										
+								<img src="thumbs/DSC00329.JPG" alt="47" title="47" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00330.JPG" title="48">
+										
+								<img src="thumbs/DSC00330.JPG" alt="48" title="48" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00331.JPG" title="49">
+										
+								<img src="thumbs/DSC00331.JPG" alt="49" title="49" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00332.JPG" title="50">
+										
+								<img src="thumbs/DSC00332.JPG" alt="50" title="50" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00333.JPG" title="51">
+										
+								<img src="thumbs/DSC00333.JPG" alt="51" title="51" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00334.JPG" title="52">
+										
+								<img src="thumbs/DSC00334.JPG" alt="52" title="52" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00335.JPG" title="53">
+										
+								<img src="thumbs/DSC00335.JPG" alt="53" title="53" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00336.JPG" title="54">
+										
+								<img src="thumbs/DSC00336.JPG" alt="54" title="54" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00338.JPG" title="56">
+										
+								<img src="thumbs/DSC00338.JPG" alt="56" title="56" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00339.JPG" title="57">
+										
+								<img src="thumbs/DSC00339.JPG" alt="57" title="57" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00340.JPG" title="58">
+										
+								<img src="thumbs/DSC00340.JPG" alt="58" title="58" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00341.JPG" title="59">
+										
+								<img src="thumbs/DSC00341.JPG" alt="59" title="59" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00342.JPG" title="60">
+										
+								<img src="thumbs/DSC00342.JPG" alt="60" title="60" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00343.JPG" title="61">
+										
+								<img src="thumbs/DSC00343.JPG" alt="61" title="61" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00344.JPG" title="62">
+										
+								<img src="thumbs/DSC00344.JPG" alt="62" title="62" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00345.JPG" title="63">
+										
+								<img src="thumbs/DSC00345.JPG" alt="63" title="63" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00346.JPG" title="64">
+										
+								<img src="thumbs/DSC00346.JPG" alt="64" title="64" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00347.JPG" title="65">
+										
+								<img src="thumbs/DSC00347.JPG" alt="65" title="65" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00348.JPG" title="66">
+										
+								<img src="thumbs/DSC00348.JPG" alt="66" title="66" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00349.JPG" title="67">
+										
+								<img src="thumbs/DSC00349.JPG" alt="67" title="67" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00350.JPG" title="68">
+										
+								<img src="thumbs/DSC00350.JPG" alt="68" title="68" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00351.JPG" title="69">
+										
+								<img src="thumbs/DSC00351.JPG" alt="69" title="69" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00352.JPG" title="70">
+										
+								<img src="thumbs/DSC00352.JPG" alt="70" title="70" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00353.JPG" title="71">
+										
+								<img src="thumbs/DSC00353.JPG" alt="71" title="71" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00355.JPG" title="72">
+										
+								<img src="thumbs/DSC00355.JPG" alt="72" title="72" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00502.JPG" title="73">
+										
+								<img src="thumbs/DSC00502.JPG" alt="73" title="73" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00503.JPG" title="74">
+										
+								<img src="thumbs/DSC00503.JPG" alt="74" title="74" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00504.JPG" title="75">
+										
+								<img src="thumbs/DSC00504.JPG" alt="75" title="75" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00505.JPG" title="76">
+										
+								<img src="thumbs/DSC00505.JPG" alt="76" title="76" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00506.JPG" title="77">
+										
+								<img src="thumbs/DSC00506.JPG" alt="77" title="77" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00507.JPG" title="78">
+										
+								<img src="thumbs/DSC00507.JPG" alt="78" title="78" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00508.JPG" title="79">
+										
+								<img src="thumbs/DSC00508.JPG" alt="79" title="79" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00509-1.jpg" title="80">
+										
+								<img src="thumbs/DSC00509-1.jpg" alt="80" title="80" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00511.JPG" title="81">
+										
+								<img src="thumbs/DSC00511.JPG" alt="81" title="81" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00512.JPG" title="82">
+										
+								<img src="thumbs/DSC00512.JPG" alt="82" title="82" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00513.JPG" title="83">
+										
+								<img src="thumbs/DSC00513.JPG" alt="83" title="83" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00514.JPG" title="84">
+										
+								<img src="thumbs/DSC00514.JPG" alt="84" title="84" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00515.JPG" title="85">
+										
+								<img src="thumbs/DSC00515.JPG" alt="85" title="85" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00516.JPG" title="86">
+										
+								<img src="thumbs/DSC00516.JPG" alt="86" title="86" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00517.JPG" title="87">
+										
+								<img src="thumbs/DSC00517.JPG" alt="87" title="87" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00518.JPG" title="88">
+										
+								<img src="thumbs/DSC00518.JPG" alt="88" title="88" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00519-1.jpg" title="                               89">
+										
+								<img src="thumbs/DSC00519-1.jpg" alt="                               89" title="                               89" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00520.JPG" title="90">
+										
+								<img src="thumbs/DSC00520.JPG" alt="90" title="90" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00521.JPG" title="91">
+										
+								<img src="thumbs/DSC00521.JPG" alt="91" title="91" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00522.JPG" title="92">
+										
+								<img src="thumbs/DSC00522.JPG" alt="92" title="92" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00523-1.jpg" title="                               93">
+										
+								<img src="thumbs/DSC00523-1.jpg" alt="                               93" title="                               93" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00524.JPG" title="94">
+										
+								<img src="thumbs/DSC00524.JPG" alt="94" title="94" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00526.JPG" title="95">
+										
+								<img src="thumbs/DSC00526.JPG" alt="95" title="95" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00527.JPG" title="96">
+										
+								<img src="thumbs/DSC00527.JPG" alt="96" title="96" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00528.JPG" title="97">
+										
+								<img src="thumbs/DSC00528.JPG" alt="97" title="97" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00529-1.jpg" title="                               98">
+										
+								<img src="thumbs/DSC00529-1.jpg" alt="                               98" title="                               98" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00530-1.jpg" title="                               99">
+										
+								<img src="thumbs/DSC00530-1.jpg" alt="                               99" title="                               99" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00534.JPG" title="100">
+										
+								<img src="thumbs/DSC00534.JPG" alt="100" title="100" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/DSC00535.JPG" title="101">
+										
+								<img src="thumbs/DSC00535.JPG" alt="101" title="101" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000060.JPG" title="102">
+										
+								<img src="thumbs/P1000060.JPG" alt="102" title="102" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000061.JPG" title="103">
+										
+								<img src="thumbs/P1000061.JPG" alt="103" title="103" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000062.JPG" title="104">
+										
+								<img src="thumbs/P1000062.JPG" alt="104" title="104" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000063.JPG" title="105">
+										
+								<img src="thumbs/P1000063.JPG" alt="105" title="105" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000064.JPG" title="106">
+										
+								<img src="thumbs/P1000064.JPG" alt="106" title="106" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000065.JPG" title="107">
+										
+								<img src="thumbs/P1000065.JPG" alt="107" title="107" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000066-1.jpg" title="108">
+										
+								<img src="thumbs/P1000066-1.jpg" alt="108" title="108" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:770</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000067.JPG" title="109">
+										
+								<img src="thumbs/P1000067.JPG" alt="109" title="109" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000068.JPG" title="110">
+										
+								<img src="thumbs/P1000068.JPG" alt="110" title="110" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000069.JPG" title="111">
+										
+								<img src="thumbs/P1000069.JPG" alt="111" title="111" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000070.JPG" title="112">
+										
+								<img src="thumbs/P1000070.JPG" alt="112" title="112" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000071.JPG" title="113">
+										
+								<img src="thumbs/P1000071.JPG" alt="113" title="113" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+						<li class="">
+									
+
+							<a href="slides/P1000072.JPG" title="114">
+										
+								<img src="thumbs/P1000072.JPG" alt="114" title="114" style="width: 90px; height: 90px;" />
+							</a>
+							<span>width:1024;;height:768</span>
+						</li>
+						
+				</ul>
+				<div class="clear"></div>
+			</div>					
+			<img class="hide" id="right_arrow" src="res/right.png" alt="Scroll right" title="Scroll right" />
+			
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<div id="middle_container">
+			<div id="main_image"></div>
+			<div id="extras"></div>
+		</div>
+	<div class="clear"></div>	
+</div>
+<div class="clear"></div>
+		<div id="footer">
+				<p id="bottom_container">
+					<a href="http://jalbum.net" target="_blank" title="jAlbum 10">jAlbum - customizable image galleries</a> and <a href="http://jalbum.net/skins/skin/Galleria" title="Galleria">Galleria</a>.
+				</p>
+		</div>
+		
+			<script type="text/javascript">
+				_jaWidgetBarColor = "white";
+			</script>
+		
+	<div id="jalbumwidgetcontainer"></div>
+<script type="text/javascript" charset="utf-8"><!--//--><![CDATA[//><!--
+_jaSkin = "Galleria";
+_jaStyle = "Light.css";
+_jaVersion = "10.10.8";
+_jaGeneratorType = "desktop";
+_jaLanguage = "en";
+_jaPageType = "index";
+_jaRootPath = ".";
+_jaGuid = "1357763459306";
+var script = document.createElement("script");
+script.type = "text/javascript";
+script.src = "http://jalbum.net/widgetapi/load.js";
+document.getElementById("jalbumwidgetcontainer").appendChild(script);
+//--><!]]></script>
+
+</body>
+</html>
+
